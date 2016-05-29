@@ -1,0 +1,151 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <!-- *** Simple types *** -->
+
+  <!-- vector2 -->
+  <xs:simpleType name="vector2">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[0-9]*;[0-9]*"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- version -->
+  <xs:simpleType name="version">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[0-9]*.[0-9]*.[0-9]*"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- guid -->
+  <xs:simpleType name="guid">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})|(\{[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}\})"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- *** Elements *** -->
+
+  <!-- Project -->
+  <xs:element name="Project" nillable="true">
+    <xs:complexType>
+      <xs:sequence>
+
+        <!-- Properties -->
+        <xs:element name="Properties">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Name" minOccurs="1" maxOccurs="1" type="xs:string" />
+              <xs:element name="Copyright" minOccurs="0" maxOccurs="1" type="xs:string" />
+              <xs:element name="Version" minOccurs="0" maxOccurs="1" type="version" />
+              <xs:element name="ZoneSizes" minOccurs="1" maxOccurs="1" type="vector2" />
+              <xs:element name="TileSizes" minOccurs="1" maxOccurs="1" type="vector2" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+
+        <!-- Zones -->
+        <xs:element name="Zones">
+          <xs:complexType>
+            <xs:sequence>
+
+              <!-- Zone -->
+              <xs:element minOccurs="0" maxOccurs="unbounded" name="Zone">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Location" minOccurs="1" maxOccurs="1" type="vector2" />
+                    
+                    <!-- Tiles -->
+                    <xs:element minOccurs="0" maxOccurs="1" name="Tiles">
+                      <xs:complexType>
+                        <xs:sequence>
+                          
+                          <!-- DefaultTile -->
+                          <xs:element minOccurs="0" maxOccurs="1" name="DefaultTile">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element minOccurs="1" maxOccurs="1" name="Tileset" type="xs:string" />
+                                <xs:element minOccurs="1" maxOccurs="1" name="Tile" type="guid" />
+                                
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                          
+                          <!-- Tile -->
+                          <xs:element minOccurs="0" maxOccurs="unbounded" name="Tile">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element minOccurs="1" maxOccurs="1" name="Location" type="vector2" />
+                                <xs:element minOccurs="1" maxOccurs="1" name="Tileset" type="xs:string" />
+                                <xs:element minOccurs="1" maxOccurs="1" name="Tile" type="guid" />
+                                
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                          
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+
+            </xs:sequence>
+          </xs:complexType>
+
+          <!-- Zone unique location -->
+          <xs:unique name="UniqueLocation">
+            <xs:selector xpath="Zone"/>
+            <xs:field xpath="Location"/>
+          </xs:unique>
+        </xs:element>
+
+        <!-- Tilesets -->
+        <xs:element name="Tilesets">
+          <xs:complexType>
+            <xs:sequence>
+
+              <!-- Tileset -->
+              <xs:element minOccurs="0" maxOccurs="unbounded" name="Tileset">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Name" minOccurs="1" maxOccurs="1" type="xs:string" />
+
+                    <!-- Tiles -->
+                    <xs:element minOccurs="1" maxOccurs="1" name="Tiles">
+                      <xs:complexType>
+                        <xs:sequence>
+
+                          <!-- Tile -->
+                          <xs:element minOccurs="0" maxOccurs="unbounded" name="Tile">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="Id" minOccurs="1" maxOccurs="1" type="guid" />
+                                <xs:element name="Data" minOccurs="1" maxOccurs="1" type="xs:string" />
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+
+                        </xs:sequence>
+                      </xs:complexType>
+                      
+                      <!-- Zone unique id -->
+                      <xs:unique name="UniqueId">
+                        <xs:selector xpath="Tile"/>
+                        <xs:field xpath="Id"/>
+                      </xs:unique>
+                    </xs:element>
+
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
