@@ -243,3 +243,6 @@ ModelManifest.xml
 
 # FAKE - F# Make
 .fake/
+
+# Ignore auto generated file
+Mappie/Project/Project_schema.cs

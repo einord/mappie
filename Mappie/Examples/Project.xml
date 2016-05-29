@@ -36,7 +36,7 @@
       <Tiles>
         <Tile>
           <Id>00000000-0000-0000-0000-000000000000</Id>
-          <Data><![CDATA[Här kommer datan för denna tile hamna]]></Data>
+          <Data><![CDATA[This is where tile data will be present]]></Data>
         </Tile>
       </Tiles>
     </Tileset>
@@ -46,7 +46,7 @@
       <Tiles>
         <Tile>
           <Id>00000000-0000-0000-0000-000000000000</Id>
-          <Data><![CDATA[Här kommer datan för denna tile hamna]]></Data>
+          <Data><![CDATA[This is where tile data will be present]]></Data>
         </Tile>
       </Tiles>
     </Tileset>
