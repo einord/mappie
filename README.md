@@ -1,3 +1,6 @@
+> This repository has moved to:
+> https://forgejo.nyqvist.app/jonte/mappie
+
 # mappie
 This software is supposed to be used for creating tile based maps and tile sets for games.
 There are other tile map editors with various quality, but I wanted to make my own.
